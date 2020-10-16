@@ -1,16 +1,17 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
+import GrayText from '../ui/GrayText'
 
-const Appointment = ({ user, active, diagnosis, time }) => (
-  <GroupItem>
-    <Avatar source={{ uri: user.avatar }} />
+const Appointment = ({ item, openPatient }) => (
+  <GroupItem onPress={() => openPatient(item)}>
+    <Avatar source={{ uri: item.user.avatar }} />
 
     <View style={{flex: 1}}>
-      <FullName>{user.fullName}</FullName>
-      <GrayText>{diagnosis}</GrayText>
+      <FullName>{item.user.fullName}</FullName>
+      <GrayText>{item.diagnosis}</GrayText>
     </View>
-    <GroupDate active={active}>{time}</GroupDate>
+    <GroupDate active={item.active}>{item.time}</GroupDate>
   </GroupItem>
 )
 
@@ -35,10 +36,6 @@ const Avatar = styled.Image`
 const FullName = styled.Text`
   font-size: 16px;
   font-weight: 600;
-`
-const GrayText = styled.Text`
-  font-size: 15px;
-  color: #8B979F;
 `
 const GroupDate = styled.Text`
   background: ${props => props.active ? '#2A86FF' : '#E9F5FF'};
